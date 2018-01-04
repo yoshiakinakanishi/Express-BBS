@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+ <title><%= title %></title>
+ <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    
+<% if (val != null){ %>
+<tr>
+   <th style="width:100px;">
+   <a class="home" href="/home/<%=val.attributes.user_id %>/1">
+   <%= val.relations.user.attributes.name %></a></th>
+   <td><%= val.attributes.message %></td>
+   <%
+   var d = new Date(val.attributes.created_at);
+   var dstr = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
+   + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+   %>
+   <td style="width:150px;"><%= dstr %></td>
+</tr>
+<% } %>
+    
+<!--
+・検索されたレコード情報はvalという変数に入れて渡される
+・val.attributes.messageとすれば、送信されたメッセージの値がわかる
+・投稿ユーザの名前は、val.relations.user.attributes.nameというように記述
+・messageテーブルには、ユーザの名前の項目はなく、usersテーブルの方にある
+・これは「アソシエーション」という機能を使ったもの
+・「アソシエーション」は、複数のテーブルを関連付けて、レコードを取得する際に関連する他のテーブルのレコードも一緒に取り出せる機能
+・取り出した関連レコードは、val.relationsというところにまとめられる
+・ここでは、この中からusersの値を取り出していたわけ
+-->
+     
+</body>
+</html>
